@@ -1,0 +1,6 @@
+SELECT title, author_lname FROM books
+WHERE SUBSTR(author_lname, 1, 1) = 'C' ||
+      SUBSTR(author_lname, 1, 1) = 'S';
+
+SELECT title, author_lname FROM books
+WHERE SUBSTR(author_lname, 1, 1) IN ('C', 'S');

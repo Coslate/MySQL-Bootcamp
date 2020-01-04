@@ -1,0 +1,61 @@
+#use book_ship databases;
+#use books table;
+SELECT title, released_year, 
+    CASE
+        WHEN released_year >= 2000 THEN 'Modern Lit'
+        ELSE '20th Century Lit'
+    END AS GENRE
+FROM books;
+
+SELECT title, stock_quantity, 
+    CASE
+        WHEN stock_quantity BETWEEN 0 AND 50 THEN '*'
+        WHEN stock_quantity BETWEEN 51 AND 100 THEN '**'
+        ELSE '***'
+    END AS STOCK
+FROM books;
+
+SELECT title, 
+    CASE
+        WHEN stock_quantity BETWEEN 0 AND 50 THEN '*'
+        WHEN stock_quantity BETWEEN 51 AND 100 THEN '**'
+        ELSE '***'
+    END AS STOCK
+FROM books;
+
+SELECT title, 
+    CASE
+        WHEN stock_quantity <= 50  THEN '*'
+        WHEN stock_quantity <= 100 THEN '**'
+        ELSE '***'
+    END AS STOCK
+FROM books;
+
+SELECT title, author_lname,
+    CASE
+        WHEN title LIKE '%stories%' THEN 'Short Stories'
+        WHEN title='Just Kids' || title LIKE '%A Heartbreaking Work%' THEN 'Memoir'
+        ELSE 'Novel'
+    END AS TYPE
+FROM books;
+
+SELECT author_fname, author_lname,
+    CASE
+        WHEN COUNT(author_lname) = 1 THEN CONCAT(COUNT(author_lname), ' book')
+        ELSE CONCAT(COUNT(author_lname), ' books')
+    END AS COUNT
+FROM books
+GROUP BY author_lname, author_fname;
+
+SELECT author_fname, author_lname,
+    CASE
+        WHEN COUNT(*) = 1 THEN CONCAT(COUNT(*), ' book')
+        ELSE CONCAT(COUNT(*), ' books')
+    END AS COUNT
+FROM books
+GROUP BY author_lname, author_fname;
+
+#COUNT(*) means 'How many records totally'
+#COUNT(column) means 'How many non-empty records in the column'
+#COUNT(distinct column) means 'How many non-empty & non-repetitive records in the column'
+
