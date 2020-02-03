@@ -1,0 +1,108 @@
+-- Create Table for TV APP Review
+CREATE TABLE reviewers(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name varchar(100),
+    last_name  varchar(100)
+);
+
+CREATE TABLE series(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100),
+    released_year YEAR(4),
+    genre VARCHAR(100)
+);
+
+CREATE TABLE reviews(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rating DECIMAL(2,1),
+    series_id INT,
+    reviewer_id INT,
+    FOREIGN KEY(series_id) REFERENCES series(id) ON DELETE CASCADE,
+    FOREIGN KEY(reviewer_id) REFERENCES reviewers(id) ON DELETE CASCADE
+);
+
+INSERT INTO reviewers (first_name, last_name) VALUES
+    ('Thomas', 'Stoneman'),
+    ('Wyatt', 'Skaggs'),
+    ('Kimbra', 'Masters'),
+    ('Domingo', 'Cortes'),
+    ('Colt', 'Steele'),
+    ('Pinkie', 'Petit'),
+    ('Marlon', 'Crafford');
+
+INSERT INTO series (title, released_year, genre) VALUES
+    ('Archer', 2009, 'Animation'),
+    ('Arrested Development', 2003, 'Comedy'),
+    ("Bob's Burgers", 2011, 'Animation'),
+    ('Bojack Horseman', 2014, 'Animation'),
+    ("Breaking Bad", 2008, 'Drama'),
+    ('Curb Your Enthusiasm', 2000, 'Comedy'),
+    ("Fargo", 2014, 'Drama'),
+    ('Freaks and Geeks', 1999, 'Comedy'),
+    ('General Hospital', 1963, 'Drama'),
+    ('Halt and Catch Fire', 2014, 'Drama'),
+    ('Malcolm In The Middle', 2000, 'Comedy'),
+    ('Pushing Daisies', 2007, 'Comedy'),
+    ('Seinfeld', 1989, 'Comedy'),
+    ('Stranger Things', 2016, 'Drama');
+
+-- Print this
++----------------------+--------+
+| title                | rating |
++----------------------+--------+
+| Archer               |    8.0 |
+| Archer               |    7.5 |
+| Archer               |    8.5 |
+| Archer               |    7.7 |
+| Archer               |    8.9 |
+| Arrested Development |    8.1 |
+| Arrested Development |    6.0 |
+| Arrested Development |    8.0 |
+| Arrested Development |    8.4 |
+| Arrested Development |    9.9 |
+| Bob's Burgers        |    7.0 |
+| Bob's Burgers        |    7.5 |
+| Bob's Burgers        |    8.0 |
+| Bob's Burgers        |    7.1 |
+| Bob's Burgers        |    8.0 |
+| Bojack Horseman      |    7.5 |
+| Bojack Horseman      |    7.8 |
+| Bojack Horseman      |    8.3 |
+| Bojack Horseman      |    7.6 |
+| Bojack Horseman      |    8.5 |
+| Breaking Bad         |    9.5 |
+| Breaking Bad         |    9.0 |
+| Breaking Bad         |    9.1 |
+| Breaking Bad         |    9.3 |
+| Breaking Bad         |    9.9 |
+| Curb Your Enthusiasm |    6.5 |
+| Curb Your Enthusiasm |    7.8 |
+| Curb Your Enthusiasm |    8.8 |
+| Curb Your Enthusiasm |    8.4 |
+| Curb Your Enthusiasm |    9.1 |
+| Fargo                |    9.1 |
+| Fargo                |    9.7 |
+| Freaks and Geeks     |    8.5 |
+| Freaks and Geeks     |    7.8 |
+| Freaks and Geeks     |    8.8 |
+| Freaks and Geeks     |    9.3 |
+| General Hospital     |    5.5 |
+| General Hospital     |    6.8 |
+| General Hospital     |    5.8 |
+| General Hospital     |    4.3 |
+| General Hospital     |    4.5 |
+| Halt and Catch Fire  |    9.9 |
+| Seinfeld             |    8.0 |
+| Seinfeld             |    7.2 |
+| Stranger Things      |    8.5 |
+| Stranger Things      |    8.9 |
+| Stranger Things      |    8.9 |
++----------------------+--------+
+
+SELECT 
+    title,
+    rating 
+FROM series 
+INNER JOIN reviews 
+    ON series.id=reviews.series_id;
+
