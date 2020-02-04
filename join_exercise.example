@@ -123,7 +123,7 @@ SELECT
     CASE 
         WHEN IFNULL(AVG(grade), 0) < 75 THEN "FAILING" 
         ELSE "PASSING"
-        END AS passing_status 
+    END AS passing_status 
 FROM students 
 LEFT JOIN papers 
     ON papers.student_id=students.id 
