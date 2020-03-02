@@ -33,3 +33,32 @@ INNER JOIN users
     ON photos.user_id=users.id
 GROUP BY photos.id 
 ORDER BY total DESC LIMIT 1;
+
+--5. Calculate avg number of photos per user
+SELECT 
+    (SELECT COUNT(*) FROM photos) / (SELECT COUNT(*) FROM users) AS avg;
+
+--6. Five most popular hashtags
+SELECT 
+    tags.tag_name, 
+    COUNT(photos.image_url) AS total 
+FROM photo_tags 
+LEFT JOIN tags 
+    ON photo_tags.tag_id = tags.id 
+LEFT JOIN photos 
+    ON photo_tags.photo_id=photos.id 
+GROUP BY tags.id
+ORDER BY total DESC LIMIT 5;
+
+
+--7. Finding the bots - the users who have liked every single photo
+SELECT 
+    users.username, 
+    COUNT(photos.image_url) AS total 
+FROM likes 
+LEFT JOIN users 
+    ON users.id=likes.user_id 
+LEFT JOIN photos 
+    ON photos.id=likes.photo_id 
+GROUP BY users.id 
+    HAVING total=(SELECT COUNT(*) FROM photos);
