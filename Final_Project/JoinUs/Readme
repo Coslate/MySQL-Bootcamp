@@ -1,0 +1,5 @@
+Step1. > export MYSQL_PW='{YOUR_PASSWORD}'
+Step2. > node ./app.js
+Step3. > mysql -u root -p $MYSQL_PW
+Step4. Check 'users' table exists. If not, use ../Exercise/schema.sql to create one.
+Step5. Open Google Chrome browser and input '127.0.0.1:8080' to check the web app.
